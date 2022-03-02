@@ -50,7 +50,7 @@ provider "aws" {
 }
 
 module "lambda_vpc" {
-    source = "./modules/lambda_vpc"
+    source = "./lambda_vpc"
     id = var.id
     availability_zone = var.availability_zone
     vpc_cidr_block = var.vpc_cidr_block
