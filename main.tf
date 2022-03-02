@@ -14,19 +14,34 @@ terraform {
     required_version = ">= 1.1.0"
 }
 
-variable "availability_zone" {
-    type = string
-    default = "eu-west-2"
-}
-
 variable "id" {
     type = string
     default = "hello-world"
+    description = "Name of the deployment"
+}
+
+variable "availability_zone" {
+    type = string
+    default = "eu-west-2"
+    description = "Which availability zone to use"
 }
 
 variable "vpc_cidr_block" {
     type = string
     default = "255.255.255.0/24"
+    description = "CIDR block for the VPC"
+}
+
+variable "public_subnet_cidr_block" {
+    type = string
+    default = "255.255.255.0/25"
+    description = "CIDR block for the public subnet"
+}
+
+variable "private_subnet_cidr_block" {
+    type = string
+    default = "255.255.255.128/25"
+    description = "CIDR block for the private subnet"
 }
 
 provider "aws" {
@@ -39,6 +54,8 @@ module "lambda_vpc" {
     id = var.id
     availability_zone = var.availability_zone
     vpc_cidr_block = var.vpc_cidr_block
+    public_subnet_cidr_block = var.public_subnet_cidr_block
+    private_subnet_cidr_block = var.private_subnet_cidr_block
 }
 
 resource "aws_vpc_endpoint" "s3" {
