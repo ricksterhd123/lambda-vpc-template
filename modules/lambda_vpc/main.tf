@@ -7,7 +7,7 @@ resource "aws_vpc" "main" {
 
 resource "aws_subnet" "public_subnet" {
     vpc_id = aws_vpc.main.id
-    cidr_block = "255.255.255.0/25"
+    cidr_block = var.public_subnet_cidr_block
     tags = {
         Name = "${var.id}-public-subnet"
     }
@@ -40,7 +40,7 @@ resource "aws_route_table_association" "public_route_table_association" {
 
 resource "aws_subnet" "private_subnet" {
     vpc_id = aws_vpc.main.id
-    cidr_block = "255.255.255.128/25"
+    cidr_block = var.private_subnet_cidr_block
 
     tags = {
         Name = "${var.id}-private-subnet"
